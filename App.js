@@ -32,6 +32,9 @@ export default function App() {
       showsMyLocationButton
       style={styles.container}
       initialRegion={location}
+      onRegionChange={(newLocaction) => {
+        setLocation(newLocaction);
+      }}
     >
       <Marker coordinate={location} />
     </MapView>
