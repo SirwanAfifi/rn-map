@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import mapStyles from "./utils/mapStyles";
+import MyMapView from "./MapView";
 
 export default function App() {
   const map = useRef(null);
@@ -25,15 +26,7 @@ export default function App() {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     });
-    map.current.animateCamera(
-      {
-        latitude,
-        longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-      1
-    );
+    map.current.gotToMyLocation();
   };
 
   useEffect(() => {
@@ -42,21 +35,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <MapView
-        ref={map}
-        provider="google"
-        showsUserLocation
-        showsCompass
-        showsMyLocationButton
-        initialRegion={location}
-        style={styles.mapStyle}
-        onRegionChange={(newLocaction) => {
-          setLocation(newLocaction);
-        }}
-        customMapStyle={mapStyles}
-      >
-        <Marker coordinate={location} />
-      </MapView>
+      <MyMapView />
       <View style={styles.details}>
         <Text style={styles.label}>Latitude: {location.latitude}</Text>
         <Text style={styles.label}>Longitude: {location.longitude}</Text>
